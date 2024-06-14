@@ -1,4 +1,4 @@
-package dsl.commands
+package dsl.commands.base
 
 open class Option(private val key: String) {
     private var value: String? = null

@@ -1,5 +1,8 @@
 package dsl.commands
 
+import dsl.commands.base.Command
+import dsl.commands.base.Option
+
 class Run: Command("RUN", "&&"){
     fun mount(init: Option.() -> Unit): Option {
         val option = Option("mount")
@@ -21,6 +24,9 @@ class Run: Command("RUN", "&&"){
 
     val none = "none"
     val host  = "host"
+
+    val sandbox = "sandbox"
+    val insecure = "insecure"
 
     fun ro(init: Option.() -> Unit): Option {
         val option = Option("ro")

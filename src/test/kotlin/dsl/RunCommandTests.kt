@@ -1,6 +1,6 @@
 package dsl
 
-import dsl.commands.dockerfile
+import dsl.commands.base.dockerfile
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -89,7 +89,7 @@ class RunCommandTests {
             dockerfile{
                 run {
                     +security {
-                        +"sandbox"
+                        +sandbox
                     }
                     +"echo Hello World!"
                     +"echo Hi program!"

@@ -1,7 +1,7 @@
-package dsl.commands
+package dsl.commands.base
 
 open class Command(private val command: String, private val separator: String = " ") {
-    private val savedArguments = mutableListOf<String>()
+    private val arguments = mutableListOf<String>()
     private val options = mutableListOf<Option>()
 
 
@@ -11,13 +11,13 @@ open class Command(private val command: String, private val separator: String = 
 
     operator fun Any.unaryPlus() {
         when(this) {
-            is String -> savedArguments.add(this)
+            is String -> arguments.add(this)
             is Option -> options.add(this)
         }
     }
 
-    override fun toString(): String{
-        val arguments = savedArguments.joinToString(" $separator ")
+    override fun toString(): String {
+        val arguments = arguments.joinToString(if(separator != " ")" $separator " else separator)
         val options = if(options.isNotEmpty()) " --${options.joinToString(",")} " else " "
         return "$command$options$arguments"
     }
