@@ -1,35 +1,38 @@
 package dsl.commands.base
 
-import dsl.commands.Arg
-import dsl.commands.Cmd
-import dsl.commands.Copy
-import dsl.commands.Run
+import dsl.commands.*
 
 class Dockerfile {
     private val children = mutableListOf<Command>()
 
-    fun run(init: Run.() -> Unit) {
+    fun RUN(init: Run.() -> Unit) {
         val run = Run()
         run.init()
         children.add(run)
     }
 
-    fun arg(init: Arg.() -> Unit) {
+    fun ARG(init: Arg.() -> Unit) {
         val arg = Arg()
         arg.init()
         children.add(arg)
     }
 
-    fun cmd(init: Command.() -> Unit) {
+    fun CMD(init: Cmd.() -> Unit) {
         val cmd = Cmd()
         cmd.init()
         children.add(cmd)
     }
 
-    fun copy(init: Command.() -> Unit) {
+    fun COPY(init: Copy.() -> Unit) {
         val copy = Copy()
         copy.init()
         children.add(copy)
+    }
+
+    fun ENTRYPOINT(init: Entrypoint.() -> Unit) {
+        val entrypoint = Entrypoint()
+        entrypoint.init()
+        children.add(entrypoint)
     }
 
     override fun toString(): String {
@@ -37,7 +40,7 @@ class Dockerfile {
     }
 }
 
-fun dockerfile(init: Dockerfile.() -> Unit): Dockerfile {
+fun Dockerfile(init: Dockerfile.() -> Unit): Dockerfile {
     val dockerfile = Dockerfile()
     dockerfile.init()
     return dockerfile

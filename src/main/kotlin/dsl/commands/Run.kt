@@ -1,9 +1,9 @@
 package dsl.commands
 
-import dsl.commands.base.Command
+import dsl.commands.base.Executing
 import dsl.commands.base.Option
 
-class Run: Command("RUN", "&&"){
+class Run: Executing("RUN", "&&"){
     fun mount(init: Option.() -> Unit): Option {
         val option = Option("mount")
         option.init()

@@ -1,6 +1,6 @@
 package dsl
 
-import dsl.commands.base.dockerfile
+import dsl.commands.base.Dockerfile
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -8,8 +8,8 @@ class RunCommandTests {
     @Test
     fun `Should create run command without options and a single argument`(){
         assertEquals(
-            dockerfile{
-                run{
+            Dockerfile{
+                RUN{
                     +"echo Hello World!"
                 }
             }.toString(),
@@ -20,8 +20,8 @@ class RunCommandTests {
     @Test
     fun `Should create run command without options and multiple arguments`(){
         assertEquals(
-            dockerfile{
-                run{
+            Dockerfile{
+                RUN{
                     +"echo Hello World!"
                     +"echo Hi program!"
                 }
@@ -33,12 +33,12 @@ class RunCommandTests {
     @Test
     fun `Should create multiple run commands without options and multiple arguments`(){
         assertEquals(
-            dockerfile{
-                run{
+            Dockerfile{
+                RUN{
                     +"echo Hello World!"
                     +"echo Hi program!"
                 }
-                run{
+                RUN{
                     +"echo Hello World!"
                     +"echo Hi program!"
                 }
@@ -50,8 +50,8 @@ class RunCommandTests {
     @Test
     fun `Should create run command option mount`(){
         assertEquals(
-            dockerfile{
-                run {
+            Dockerfile{
+                RUN {
                     +mount {
                         +bind
                         +target { +"/test/path" }
@@ -70,8 +70,8 @@ class RunCommandTests {
     @Test
     fun `Should create run command option network`(){
         assertEquals(
-            dockerfile{
-                run {
+            Dockerfile{
+                RUN {
                     +network {
                         +none
                     }
@@ -86,8 +86,8 @@ class RunCommandTests {
     @Test
     fun `Should create run command option security`(){
         assertEquals(
-            dockerfile{
-                run {
+            Dockerfile{
+                RUN {
                     +security {
                         +sandbox
                     }
@@ -102,8 +102,8 @@ class RunCommandTests {
     @Test
     fun `Should create run command option network and mount`(){
         assertEquals(
-            dockerfile{
-                run {
+            Dockerfile{
+                RUN {
                     +network {
                         +none
                     }
@@ -119,6 +119,29 @@ class RunCommandTests {
                 }
             }.toString(),
             "RUN --network=none --mount=type=bind,target=/test/path,source=/test/source,from=image,rw=true echo Hello World! && echo Hi program!"
+        )
+    }
+
+    @Test
+    fun `Should create run command option network and mount and in exec form`(){
+        assertEquals(
+            Dockerfile{
+                RUN {
+                    +shell()
+                    +network {
+                        +none
+                    }
+                    +mount {
+                        +bind
+                        +target { +"/test/path" }
+                        +source { +"/test/source" }
+                        +from { +"image" }
+                        +rw { +"true" }
+                    }
+                    +"echo Hello World!"
+                }
+            }.toString(),
+            "RUN --network=none --mount=type=bind,target=/test/path,source=/test/source,from=image,rw=true [\"echo\", \"Hello\", \"World!\"]"
         )
     }
 }

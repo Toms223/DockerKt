@@ -1,11 +1,11 @@
 package dsl.commands.base
 
-open class Option(private val key: String) {
+class Option(private val key: String) {
     private var value: String? = null
 
     private val children = mutableListOf<Option>()
 
-    open operator fun invoke(init: Option.() -> Unit) {
+    operator fun invoke(init: Option.() -> Unit) {
         this.init()
     }
 
