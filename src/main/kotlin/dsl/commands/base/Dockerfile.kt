@@ -35,9 +35,28 @@ class Dockerfile {
         children.add(entrypoint)
     }
 
+    fun ENV(init: Env.() -> Unit) {
+        val env = Env()
+        env.init()
+        children.add(env)
+    }
+
+    fun EXPOSE(init: Expose.() -> Unit) {
+        val expose = Expose()
+        expose.init()
+        children.add(expose)
+    }
+
+    fun FROM(init: From.() -> Unit) {
+        val from = From()
+        from.init()
+        children.add(from)
+    }
+
     override fun toString(): String {
         return children.joinToString("\n")
     }
+
 }
 
 fun Dockerfile(init: Dockerfile.() -> Unit): Dockerfile {

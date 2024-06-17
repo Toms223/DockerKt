@@ -1,7 +1,7 @@
 package dsl.commands.base
 
 abstract class Command(private val command: String, private val separator: String = " ") {
-    private val arguments = mutableListOf<String>()
+    val arguments = mutableListOf<String>()
     private val options = mutableListOf<Option>()
 
 
@@ -9,7 +9,7 @@ abstract class Command(private val command: String, private val separator: Strin
         this.init()
     }
 
-    operator fun Any.unaryPlus() {
+    open operator fun Any.unaryPlus() {
         when(this) {
             is String -> arguments.add(this)
             is Option -> options.add(this)
