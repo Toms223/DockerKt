@@ -53,6 +53,12 @@ class Dockerfile {
         children.add(from)
     }
 
+    fun ADD(init: Add.() -> Unit) {
+        val add = Add()
+        add.init()
+        children.add(add)
+    }
+
     override fun toString(): String {
         return children.joinToString("\n")
     }
