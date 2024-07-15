@@ -35,7 +35,7 @@ class AddCommandTests {
                 ADD{
                     +"source"
                     +"destination"
-                    +keepGitDir()
+                    +keepGitDir
                     +checksum{
                         +"sha256:1234567890"
                     }
@@ -45,7 +45,7 @@ class AddCommandTests {
                     +chmod{
                         +"777"
                     }
-                    +link()
+                    +link
                     +exclude{
                         +"*.txt"
                     }

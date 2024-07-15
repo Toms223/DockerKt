@@ -59,6 +59,30 @@ class Dockerfile {
         children.add(add)
     }
 
+    fun HEALTHCHECK(init: Healthcheck.() -> Unit) {
+        val healthcheck = Healthcheck()
+        healthcheck.init()
+        children.add(healthcheck)
+    }
+
+    fun LABEL(init: Label.() -> Unit) {
+        val label = Label()
+        label.init()
+        children.add(label)
+    }
+
+    fun MAINTAINER(init: Maintainer.() -> Unit) {
+        val maintainer = Maintainer()
+        maintainer.init()
+        children.add(maintainer)
+    }
+
+    fun ONBUILD(init: Onbuild.() -> Unit) {
+        val onbuild = Onbuild()
+        onbuild.init()
+        children.add(onbuild)
+    }
+
     override fun toString(): String {
         return children.joinToString("\n")
     }

@@ -4,13 +4,15 @@ import dsl.commands.base.Command
 import dsl.commands.base.Option
 
 class Add: Command("ADD"){
-    fun keepGitDir(): Option{
-        val option = Option("keep-git-dir")
-        option{
+    val keepGitDir = Option("keep-git-dir")
+    val link: Option = Option("link")
+
+    init {
+        keepGitDir{
             +"true"
         }
-        return option
     }
+
 
     fun checksum(init: Option.() -> Unit): Option {
         val option = Option("checksum")
@@ -28,10 +30,6 @@ class Add: Command("ADD"){
         val option = Option("chmod")
         option.init()
         return option
-    }
-
-    fun link(): Option {
-        return Option("link")
     }
 
     fun exclude(init: Option.() -> Unit): Option {
