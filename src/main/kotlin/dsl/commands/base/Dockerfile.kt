@@ -83,6 +83,36 @@ class Dockerfile {
         children.add(onbuild)
     }
 
+    fun SHELL(init: Shell.() -> Unit) {
+        val shell = Shell()
+        shell.init()
+        children.add(shell)
+    }
+
+    fun STOPSIGNAL(init: Stopsignal.() -> Unit) {
+        val stopsignal = Stopsignal()
+        stopsignal.init()
+        children.add(stopsignal)
+    }
+
+    fun USER(init: User.() -> Unit) {
+        val user = User()
+        user.init()
+        children.add(user)
+    }
+
+    fun VOLUME(init: Volume.() -> Unit) {
+        val volume = Volume()
+        volume.init()
+        children.add(volume)
+    }
+
+    fun WORKDIR(init: Workdir.() -> Unit) {
+        val workdir = Workdir()
+        workdir.init()
+        children.add(workdir)
+    }
+
     override fun toString(): String {
         return children.joinToString("\n")
     }
