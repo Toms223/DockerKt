@@ -1,11 +1,12 @@
 package client.httpclient
 
+
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody.Companion.toRequestBody
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-class HttpClient: Client {
+class OkHttpDockerClient: Client {
     private val okHttpClient = OkHttpClient()
     private val requestBuilder = okhttp3.Request.Builder()
 
